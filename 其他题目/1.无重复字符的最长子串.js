@@ -1,4 +1,3 @@
-
 var lengthOfLongestSubstring = function(s) {
     let arr = [], max = 0
     for(let i = 0; i < s.length; i++) {
