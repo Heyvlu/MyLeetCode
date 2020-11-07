@@ -1,31 +1,33 @@
 var serialize = function(root) {
-    if(root==null) return "[]";
-    let SEP=",";
-    let NULL="#";
-    let sb="";
-    let xuliehua=(root,sb)=>{
-        if(root==null){
-            return sb=sb+NULL+SEP;
-        }
-        sb=sb+root.val+SEP;
-        xuliehua(root.left,sb);
-        xuliehua(root.right,sb);
-        return sb;
+    let str = '';
+    const dfs = (node) => {
+      if (node) {
+        str += `${node.val},`;
+        dfs(node.left);
+        dfs(node.right);
+      } else {
+        str += '#,'
+      }
+  
     }
-    xuliehua(root,sb);
+    dfs(root);
+    return str;
 };
 
-
 var deserialize = function(data) {
-    let arr=data.split(",");
-    if(!arr.length) return null;
-    let build=(arr)=>{
-    let first=arr.shift();
-    if(first=="#") return null;
-    let root=new TreeNode(first);
-    root.left=build(arr);
-    root.right=build(arr);
-    return root;
-    };
-    return build(arr);
+    let arr = data.split(',');
+    let index = 0;
+  
+    const buildTree = (arr) => {
+      let s = arr[index];
+      index++;
+      if (s === '#') {
+        return null;
+      }
+      let node = new TreeNode(s);
+      node.left = buildTree(arr);
+      node.right = buildTree(arr);
+      return node;
+    }
+    return buildTree(arr);
 };
