@@ -1,19 +1,24 @@
 var maxEnvelopes = function(envelopes) {
-    if(!envelopes.length) return 0;
-    let count = [];
-    count[0] = new Array(envelopes.length).fill(1);
-    count[1] = new Array(envelopes.length).fill(1);
-    for(let i = 0;i<2;i++){
-        let arr = envelopes.map((o)=>o);
-        arr.sort((a,b)=>a[i]-b[i]);
-        console.log(i,arr);
-        for(let j = 1;j<arr.length;j++){
-            for(let k = 0;k<j;k++){
-                //dp[i] = Math.max(dp[i], nums[i] > nums[j] ? dp[j] + 1 : 1)
-                count[i][j] = Math.max(count[i][j],arr[j][0] > arr[k][0] && arr[j][1] > arr[k][1] ?count[i][k] + 1 : 1);
+    let n=envelopes.length;
+    envelopes.sort((a,b)=>a[0]===b[0]?(b[1]-a[1]):(a[0]-b[0]));
+    let height=[];
+    for(let i=0;i<n;i++){
+        height[i]=envelopes[i][1];
+    }
+    let dp=new Array(height.length).fill(1);
+    for(let i=0;i<height.length;i++){
+        for(let j=0;j<i;j++){
+            if(height[i]>height[j]){
+                dp[i]=Math.max(dp[i],dp[j]+1);
             }
         }
     }
-    console.log(count);
-    return Math.max(...count[0],...count[1]);
+    let res=0;
+    for(let m=0;m<dp.length;m++){
+        if(dp[m]>res){
+            res=dp[m];
+        }
+    }
+    return res;
 };
+console.log(maxEnvelopes([[4,5],[4,6],[6,7],[2,3],[1,1]]));
