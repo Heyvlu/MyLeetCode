@@ -3,7 +3,7 @@ var calculate = function(s) {
     let helper=(arr)=>{
         let stack=[];
         let sign="+";
-        num=0;
+        let num=0;
         while(arr.length>0){
             let c=arr.pop();
             if(/\d+/.test(c)){

@@ -2,8 +2,8 @@ var calculate = function(s) {
     let arr=Array.from(s).reverse();
     let helper=(arr)=>{
         let stack=[];
-        sign="+";
-        num=0;
+        let sign="+";
+        let num=0;
         while(arr.length>0){
             let c=arr.pop();
             if(/\d+/.test(c)){
